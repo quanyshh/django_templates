@@ -26,7 +26,7 @@ SECRET_KEY = '3$e*1$-ewg8yjezac25+(@x^a4864&+!(e$8v=y1ci78av#ntg'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['127.0.0.1']
 
 
 # Application definition
@@ -41,6 +41,8 @@ INSTALLED_APPS = [
     'shop.apps.ShopConfig',
     'cart.apps.CartConfig',
     'orders.apps.OrdersConfig',
+    'payment.apps.PaymentConfig',
+    'coupons.apps.CouponsConfig',
 ]
 
 MIDDLEWARE = [
@@ -127,3 +129,26 @@ MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
 
 CART_SESSION_ID = 'cart'
+
+#EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = 'kuka0597@gmail.com'
+EMAIL_HOST_PASSWORD = 'vnxozyjjhvjsikmt'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+
+# Braintree settings
+BRAINTREE_MERCHANT_ID = 'bjknkbq6pvwrkfbj'  # Merchant ID
+BRAINTREE_PUBLIC_KEY = 'tmxvbhtwgqj322g4'   # Public Key
+BRAINTREE_PRIVATE_KEY = 'b59a6f6c31e9540d4a00bde59ab62278'  # Private key
+
+from braintree import Configuration, Environment
+
+Configuration.configure(
+    Environment.Sandbox,
+    BRAINTREE_MERCHANT_ID,
+    BRAINTREE_PUBLIC_KEY,
+    BRAINTREE_PRIVATE_KEY
+)
+
+STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
